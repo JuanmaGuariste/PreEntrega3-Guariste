@@ -1,1 +1,43 @@
 @import "../base/variables";
+
+main{
+    grid-area: main;
+    .inicio{
+        background: linear-gradient(rgb(151, 0, 0), rgb(0, 0, 0)), url("../img/fondo-contacto.jpg");
+        height: calc(100vh - 56px);    
+        @include flex(flex, center, center);        
+        form{
+            width: 450px; 
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 20px;
+            h2{
+                color: #fff;
+                text-align: center;
+                margin: 0px;
+                font-size: 30px;
+                margin-bottom: 20px;           
+            }
+            input{
+                width: 100%;
+                margin-bottom: 20px;
+                padding: 7px;
+                box-sizing: border-box;
+                font-size: 17px;
+                border: none;
+                font-family: 'Roboto', sans-serif;
+                &:hover{
+                    background-color: #525252;
+                    color: #fff;
+                }
+                .boton{
+                    background: #31384A;
+                    color: #fff;
+                    padding: 15px;
+                    &:hover{
+                        cursor: pointer;  
+                    }
+                }
+            }            
+        }
+    }
+}

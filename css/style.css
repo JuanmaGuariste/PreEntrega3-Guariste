@@ -1,0 +1,71 @@
+/*----------------RESET--------------------*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+/*------------------Grilla------------------*/
+.grid-contenedor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 56px auto 70px;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: "header header" "main main" "footer footer"; }
+
+header {
+  grid-area: header; }
+  header nav {
+    color: white;
+    background-color: black;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    header nav h1 {
+      padding: 5px;
+      display: center; }
+
+main {
+  grid-area: main; }
+  main .inicio {
+    background: linear-gradient(#970000, black), url("../img/fondo-contacto.jpg");
+    height: calc(100vh - 56px);
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    main .inicio form {
+      width: 450px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 10px 20px; }
+      main .inicio form h2 {
+        color: #fff;
+        text-align: center;
+        margin: 0px;
+        font-size: 30px;
+        margin-bottom: 20px; }
+      main .inicio form input {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 7px;
+        box-sizing: border-box;
+        font-size: 17px;
+        border: none;
+        font-family: 'Roboto', sans-serif; }
+        main .inicio form input:hover {
+          background-color: #525252;
+          color: #fff; }
+        main .inicio form input .boton {
+          background: #31384A;
+          color: #fff;
+          padding: 15px; }
+          main .inicio form input .boton:hover {
+            cursor: pointer; }
+
+footer {
+  grid-area: footer;
+  background-color: black; }
+  footer h2 {
+    color: #470000;
+    padding-top: 20px;
+    padding-left: 10px; }
