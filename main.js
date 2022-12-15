@@ -1,3 +1,8 @@
+let accionProducto = 0;
+let pass = "1";
+let dato = prompt("Ingrese la clave de su sistema de control de stock.");
+let acceso = 0;
+
 class Producto {
     constructor(tipoVehiculo, modeloCubierta, marca, precio, stock) {
         this.tipoVehiculo = tipoVehiculo;
@@ -165,6 +170,22 @@ const ventaProducto = () => {
     return listaProductos;
 }
 
+
+
+// const stockProducto = (modeloCubierta, marca) => {  
+//     let index = listaProductos.indexOf((listaProductos.modeloCubierta == modeloCubierta) && (listaProductos.marca == marca));
+//     if (index =! -1){
+//         if (listaProductos[index].stock == 0) {
+//             alert(`Modelo: ${listaProductos[index].modeloCubierta}\nMarca: ${listaProductos[index].marca}\nStock: No hay unidades disponibles.`);
+//         } else if (listaProductos[index].stock < 10) {
+//             alert(`Modelo: ${listaProductos[index].modeloCubierta}\nMarca: ${listaProductos[index].marca}\nStock: Solo quedan ${listaProductos[index].stock} unidades disponibles. Asegúrese de reponer.`);
+//         } else {
+//             alert(`Modelo: ${listaProductos[index].modeloCubierta}\nMarca: ${listaProductos[index].marca}\nStock: Hay ${listaProductos[index].stock} unidades disponibles.`);               
+//         } 
+//     }
+// }
+
+
 const stockProducto = (modeloCubierta, marca) => {  
     listaProductos.forEach(product => {
         if (product.modeloCubierta == modeloCubierta && product.marca == marca) {
@@ -287,14 +308,6 @@ const decision = (accionProducto) => {
     }   
     return accionProducto;
 }
-
-let accionProducto = 0;
-
-let pass = "1";
-
-let dato = prompt("Ingrese la clave de su sistema de control de stock.");
-
-let acceso = 0;
 
 for (let intentos = 0; intentos <3; intentos++) {
     if (dato === pass) {
