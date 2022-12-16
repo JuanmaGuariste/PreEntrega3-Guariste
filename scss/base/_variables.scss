@@ -1,3 +1,7 @@
+$color-principal: #693f3f;
+$color-secundario: #dddddd;
+$color-terciario: hsl(0, 0%, 61%);
+
 @mixin flex($flex, $justify, $align){
     display: $flex;
     justify-content: $justify;

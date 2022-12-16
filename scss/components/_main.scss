@@ -17,6 +17,15 @@ main{
                 font-size: 30px;
                 margin-bottom: 20px;           
             }
+            select{
+                width: 100%;
+                margin-bottom: 20px;
+                padding: 7px;
+                box-sizing: border-box;
+                font-size: 17px;
+                border: none;
+                font-family: 'Roboto', sans-serif;
+            }
             input{
                 width: 100%;
                 margin-bottom: 20px;

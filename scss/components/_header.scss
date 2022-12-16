@@ -1,15 +1,57 @@
 @import "../base/variables";
 
+/*----------------HEADER----------------------*/
+
 header{
-    grid-area: header;    
+    grid-area: header;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
     nav{
-        color: white;
-        background-color: rgb(0, 0, 0);   
-        height:  100%;
-        @include flex(flex, center, center);   
-        h1{
-            padding: 5px;
-            display: center;
+        .container-fluid{
+            h1{
+                a{
+                    text-decoration: none;
+                    color: white;
+                    font-family: 'Roboto', sans-serif;
+                    font-size: 25px;
+                    margin: 0px;
+                    padding-right: 50px;
+                }
+            }
+            .navbar-toggler{
+                background-color: rgba(136, 136, 136, 0.37);
+                border-color: rgba(255, 255, 255, 0.055);
+            }
+            #navbarNavAltMarkup{
+                .navbar-nav{
+                    flex: 1;
+                    margin: auto;                    
+                    @include flex(flex, space-between, start);                    
+                    padding-left: 10px; 
+                    padding-right: 50px;
+                    .nav-link{
+                        color: white;
+                        &:hover {
+                            color: $color-principal;  
+                        }
+                    }
+                }
+            }
         }
     }
 }
+
+
+// header{
+//     grid-area: header;    
+//     nav{
+//         color: white;
+//         background-color: rgb(0, 0, 0);   
+//         height:  100%;
+//         @include flex(flex, center, center);   
+//         h1{
+//             padding: 5px;
+//             display: center;
+//         }
+//     }
+// }

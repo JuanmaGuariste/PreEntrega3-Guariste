@@ -1,6 +1,6 @@
 let accionProducto = 0;
 let pass = "1";
-let dato = prompt("Ingrese la clave de su sistema de control de stock.");
+//let dato = prompt("Ingrese la clave de su sistema de control de stock.");
 let acceso = 0;
 
 class Producto {
@@ -280,51 +280,51 @@ const filtroModelo = () => {
     return listaProductos ;
 }
 
-const decision = (accionProducto) => { 
-    switch (accionProducto) {
-        case 1:
-            agregarProducto();
-            break;
-        case 2:
-            ventaProducto();
-            break;
-        case 3:
-            consultaStock();            
-            break; 
-        case 4:
-            listaProd();            
-            break;
-        case 5:
-            consultaPrecio();            
-        break;
-        case 6:
-            cambiarPrecio();            
-        break;    
-        case 7:
-            filtroModelo();
-            break; 
-        default:            
-            break;
-    }   
-    return accionProducto;
-}
+// const decision = (accionProducto) => { 
+//     switch (accionProducto) {
+//         case 1:
+//             agregarProducto();
+//             break;
+//         case 2:
+//             ventaProducto();
+//             break;
+//         case 3:
+//             consultaStock();            
+//             break; 
+//         case 4:
+//             listaProd();            
+//             break;
+//         case 5:
+//             consultaPrecio();            
+//         break;
+//         case 6:
+//             cambiarPrecio();            
+//         break;    
+//         case 7:
+//             filtroModelo();
+//             break; 
+//         default:            
+//             break;
+//     }   
+//     return accionProducto;
+// }
 
-for (let intentos = 0; intentos <3; intentos++) {
-    if (dato === pass) {
-        acceso = 1;
-        intentos = 3;
-    } else {
-        acceso = 0;
-        alert("Clave incorrecta.");
-        dato = prompt("¿Cuál es la clave?");
-    }
-}
+// for (let intentos = 0; intentos <3; intentos++) {
+//     if (dato === pass) {
+//         acceso = 1;
+//         intentos = 3;
+//     } else {
+//         acceso = 0;
+//         alert("Clave incorrecta.");
+//         dato = prompt("¿Cuál es la clave?");
+//     }
+// }
 
-if (acceso == 1) {
-    do {
-        accionProducto = parseInt(prompt("Ingrese el número de lo que desea realizar\n1 - Ingresar producto\n2 - Vender producto\n3 - Consultar stock\n4 - Lista de productos\n5 - Consultar precio\n6 - Cambiar precio\n7 - Filtrar por modelo\n0 - Salir"));
-        decision(accionProducto);    
-    } while (accionProducto);
-} else {
-    alert("No se pudo iniciar seción correcamtente. Si olvidó su contraseña contáctese con el administrador del sitio.");
-}
+// if (acceso == 1) {
+//     do {
+//         accionProducto = parseInt(prompt("Ingrese el número de lo que desea realizar\n1 - Ingresar producto\n2 - Vender producto\n3 - Consultar stock\n4 - Lista de productos\n5 - Consultar precio\n6 - Cambiar precio\n7 - Filtrar por modelo\n0 - Salir"));
+//         decision(accionProducto);    
+//     } while (accionProducto);
+// } else {
+//     alert("No se pudo iniciar seción correcamtente. Si olvidó su contraseña contáctese con el administrador del sitio.");
+// }

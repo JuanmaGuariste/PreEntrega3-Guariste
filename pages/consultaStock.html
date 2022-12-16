@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/style.css">
-    <title>Control de stock</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Document</title>
 </head>
 <body>
     <div class="grid-contenedor">
         <header>
             <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
                 <div class="container-fluid">
-                    <!-- <h1 href="./index.html">CS</h1> -->
-                    <h1><a href="./index.html">CS</a></h1>
+                    <!-- <h1 href="../index.html">CS</h1> -->
+                    <h1><a href="../index.html">CS</a></h1>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -23,13 +23,13 @@
                     </button>
                     <div class="collapse navbar-collapse row" id="navbarNavAltMarkup">
                         <div class="navbar-nav"> 
-                            <a class="nav-link" href="./pages/agregarProducto.html">Agregar un producto</a>
-                            <a class="nav-link" href="./pages/cambiarPrecios.html">Cambiar precios</a>                            
-                            <a class="nav-link" href="./pages/consultaStock.html">Consulta stock</a>
-                            <a class="nav-link" href="./pages/filtros.html">Filtros</a>
-                            <a class="nav-link" href="./pages/listaProductos.html">Lista de productos</a>
-                            <a class="nav-link" href="./pages/ventas.html">Ventas</a>
-                            <a class="nav-link" href="./pages/cerrarSecion.html">Cerrar seción</a>
+                            <a class="nav-link" href="./agregarProducto.html">Agregar un producto</a>
+                            <a class="nav-link" href="./cambiarPrecios.html">Cambiar precios</a>                            
+                            <a class="nav-link" href="./consultaStock.html">Consulta stock</a>
+                            <a class="nav-link" href="./filtros.html">Filtros</a>
+                            <a class="nav-link" href="./listaProductos.html">Lista de productos</a>
+                            <a class="nav-link" href="./ventas.html">Ventas</a>
+                            <a class="nav-link" href="./cerrarSecion.html">Cerrar seción</a>
                         </div>
                     </div>
                 </div>
@@ -37,18 +37,18 @@
         </header>
         <main>
             <section class="inicio">
-                <h2>INDEXXXXXXXXX</h2>
-                <!-- <form action="">
-                    <h2>Control de stock e inventario</h2>           
-                    <input type="button" onclick="location.href='./pages/agregarProducto.html'" value="Agregar un producto" class="boton">         
-                    <input type="button" value="Ventas" class="boton">
+                <form action="">
+                    <h2>Consultar stock</h2>                     
+                    <input type="text" placeholder="Modelo de cubierta" class="boton">
+                    <select name="select" >
+                        <option value="">Pirelli</option>
+                        <option value="">Bridgestone</option>
+                        <option value="">Firestone</option>
+                        <option value="">Kumo</option>                        
+                    </select>                    
                     <input type="button" value="Consultar stock" class="boton">
-                    <input type="button" value="Lista de productos" class="boton">
-                    <input type="button" value="Consultar precios" class="boton">
-                    <input type="button" value="Cambiar precios" class="boton">
-                    <input type="button" value="Filtrar por modelo" class="boton">
-                    <input type="button" value="Cerrar seción" class="boton">
-                </form> -->
+                    <input type="reset" value="Borrar" class="boton">
+                </form>
             </section>
         </main>        
         <footer>
@@ -60,6 +60,6 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>        
     <!--JavaScript-->
-    <script src="./main.js"></script>
+    <script src="../main.js"></script>
 </body>
 </html>
