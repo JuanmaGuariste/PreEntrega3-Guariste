@@ -1,28 +1,3 @@
-const cuerpoDelDocumento = document.body;
-const formNuevoProducto = document.getElementById("formNuevoProducto");
-const vehiculoNuevoProducto = document.getElementById("vehiculo");
-const modeloNuevoProducto = document.getElementById("modeloNuevoProducto");
-const marcaNuevoProducto = document.getElementById("marcaNuevoProducto");
-const btnAgregarProducto = document.getElementById("btnAgregarProducto");
-const primerVentana = document.getElementById("primerVentana");
-const segundaVentana = document.getElementById("segundaVentana");
-const stockNuevoProducto = document.getElementById("stockNuevoProducto");
-const precioNuevoProducto = document.getElementById("precioNuevoProducto");
-const btnAgregarProductoNuevo = document.getElementById("btnAgregarProductoNuevo");
-const btnProductoAgregado = document.getElementById("btnProductoAgregado");
-const btnReset = document.getElementById("btnReset");
-const tercerVentana = document.getElementById("tercerVentana");
-const parrafoProductoAgregado = document.getElementById("parrafoProductoAgregado");
-
-
-
-
-
-
-
-
-
-
 let accionProducto = 0;
 let pass = "1";
 //let dato = prompt("Ingrese la clave de su sistema de control de stock.");
@@ -38,41 +13,101 @@ class Producto {
     }
 }
 
-const productoProvisorio = {
-    tipoVehiculo: "Auto",
-    modeloCubierta: "",
-    marca: "Pirelli",
-    precio: 0,
-    stock: 0,
-    nuevo: 0,
-}
-
 let listaProductos = [
-    {tipoVehiculo: "Auto",
+    {tipoVehiculo: "auto",
     modeloCubierta: "1757013",
-    marca: "Fate",
+    marca: "fate",
     precio: 45000,
     stock:  50
     },
-    {tipoVehiculo: "Camioneta",
+    {tipoVehiculo: "camioneta",
     modeloCubierta: "1955515",
-    marca: "Pirelli",
+    marca: "pirelli",
     precio: 65000,
     stock:  30
     },
-    {tipoVehiculo: "Moto",
+    {tipoVehiculo: "moto",
     modeloCubierta: "909018",
-    marca: "Pirelli",
+    marca: "pirelli",
     precio: 20000,
     stock:  100
     },
 ];
 
-cuerpoDelDocumento.onload = init;
-
-function init() {
-    segundaVentana.style.display = "none";
+const asignarTipo = (vehiculo) => {   
+    switch (vehiculo) {
+        case 1:
+            vehiculo = "moto";
+            break;
+        case 2:
+            vehiculo = "auto";
+            break;
+        case 3:
+            vehiculo = "camioneta";
+            break;
+        case 4:
+            vehiculo = "camion";
+            break;
+        default:
+            alert("Ingrese un número válido.");   
+            vehiculo = "";         
+            break;
+    }
+    return vehiculo;
 }
+
+const validarValor = (producto) => { 
+    let valido;
+    if (producto == "") {
+        alert(`Por favor, complete el campo.`);     
+        valido = 0;
+    } else { 
+        valido = 1;  
+    }
+    return valido;
+}
+
+const agregarStock = (modeloCubierta, marca) => { 
+    let nuevoProducto1 = prompt("¿Cuántos desea agregar?"); 
+    if (validarValor(nuevoProducto1)) {
+        nuevoProducto1 = parseInt(nuevoProducto1);
+        listaProductos.forEach(product => {  
+            if (product.modeloCubierta == modeloCubierta && product.marca == marca) {
+                if ((nuevoProducto1 <= 0) ) { 
+                    alert(`Por favor, ingrese una cantidad mayor a cero.`);  
+                } else if (nuevoProducto1 == 1) {
+                    product.stock += nuevoProducto1;
+                    alert(`Se agregó 1 unidad. El stock actual es de ${product.stock}.`);                         
+                } else {
+                    product.stock+= nuevoProducto1;
+                    alert(`Se agregaron ${nuevoProducto1} unidades. El stock actual es de ${product.stock}.`);                          
+                }
+            }
+        }); 
+    }    
+    return nuevoProducto1;
+}
+
+const agregarProducto = () => {    
+    let tipoVehic = prompt("Ingrese el número del tipo de vehículo\n1 - Moto\n2 - Auto\n3 - Camioneta\n4 - Camion");
+    if (validarValor(tipoVehic)) {
+        let tipoVehiculo = asignarTipo(parseInt(tipoVehic));
+        if ((tipoVehic > 0) && (tipoVehic < 5)) {
+            let modeloCubierta = prompt("Ingrese el modelo de cubierta.").toUpperCase();
+            let marca = prompt("Ingrese la marca de la cubierta.").toLowerCase();
+            if (listaProductos.some(producto => (producto.modeloCubierta == modeloCubierta && producto.marca == marca))) {   
+                agregarStock(modeloCubierta, marca);         
+            } else {    
+                alert(`Es un producto nuevo.`);   
+                let stock = agregarStock(modeloCubierta, marca);             
+                let precio = nuevoPrecio (modeloCubierta, marca);           
+                let prodNuevo = new Producto(tipoVehiculo, modeloCubierta, marca, precio, stock);
+                listaProductos.push(prodNuevo);
+            }
+        }
+    }
+    return listaProductos;
+};
 
 const vender = (modeloCubierta, marca) => {  
     listaProductos.forEach(product => {
@@ -136,6 +171,21 @@ const ventaProducto = () => {
 }
 
 
+
+// const stockProducto = (modeloCubierta, marca) => {  
+//     let index = listaProductos.indexOf((listaProductos.modeloCubierta == modeloCubierta) && (listaProductos.marca == marca));
+//     if (index =! -1){
+//         if (listaProductos[index].stock == 0) {
+//             alert(`Modelo: ${listaProductos[index].modeloCubierta}\nMarca: ${listaProductos[index].marca}\nStock: No hay unidades disponibles.`);
+//         } else if (listaProductos[index].stock < 10) {
+//             alert(`Modelo: ${listaProductos[index].modeloCubierta}\nMarca: ${listaProductos[index].marca}\nStock: Solo quedan ${listaProductos[index].stock} unidades disponibles. Asegúrese de reponer.`);
+//         } else {
+//             alert(`Modelo: ${listaProductos[index].modeloCubierta}\nMarca: ${listaProductos[index].marca}\nStock: Hay ${listaProductos[index].stock} unidades disponibles.`);               
+//         } 
+//     }
+// }
+
+
 const stockProducto = (modeloCubierta, marca) => {  
     listaProductos.forEach(product => {
         if (product.modeloCubierta == modeloCubierta && product.marca == marca) {
@@ -189,7 +239,7 @@ const consultaPrecio = () => {
     return listaProductos;
 }
 
-const nuevoPrecio2 = (modeloCubierta, marca) => { 
+const nuevoPrecio = (modeloCubierta, marca) => { 
     let valorProducto = prompt(`¿Cuál es el precio por unidad?`);
     if (validarValor(valorProducto)) {
         valorProducto = parseFloat(valorProducto);
@@ -229,172 +279,6 @@ const filtroModelo = () => {
     }      
     return listaProductos ;
 }
-
-const nuevoPrecio = (modeloCubierta, marca) => { 
-    let valorProducto = prompt(`¿Cuál es el precio por unidad?`);
-    if (validarValor(valorProducto)) {
-        valorProducto = parseFloat(valorProducto);
-        if (valorProducto < 0){
-            alert(`Por favor, ingrese un valor mayor a cero.`)
-        } else {
-            listaProductos.forEach(product => {
-            if (product.modeloCubierta == modeloCubierta && product.marca == marca) {   
-                product.precio = valorProducto;
-                alert(`Modelo: ${product.modeloCubierta}\nMarca: ${product.marca}\nPrecio por unidad: $${product.precio}`);            
-            } 
-            });
-        } 
-        return valorProducto;
-    }       
-    return valorProducto;
-}
-
-const agregarStock = (productoProvisorio) => { 
-    if(productoProvisorio.nuevo == 0){
-    //primerVentana.style.display = "none"; 
-    listaProductos.forEach(product => {  
-        if (product.modeloCubierta == productoProvisorio.modeloCubierta && product.marca == productoProvisorio.marca) {           
-            product.stock+= productoProvisorio.stock;                                    
-        }
-    });                     
-    } else {
-        primerVentana.style.display = "none";
-        segundaVentana.style.display = "inline";
-    }   
-    // let nuevoProducto1 = prompt("¿Cuántos desea agregar?"); 
-    // if (validarValor(nuevoProducto1)) {
-    //     nuevoProducto1 = parseInt(nuevoProducto1);
-    //     listaProductos.forEach(product => {  
-    //         if (product.modeloCubierta == modeloCubierta && product.marca == marca) {
-    //             if ((nuevoProducto1 <= 0) ) { 
-    //                 alert(`Por favor, ingrese una cantidad mayor a cero.`);  
-    //             } else if (nuevoProducto1 == 1) {
-    //                 product.stock += nuevoProducto1;
-    //                 alert(`Se agregó 1 unidad. El stock actual es de ${product.stock}.`);                         
-    //             } else {
-    //                 product.stock+= nuevoProducto1;
-    //                 alert(`Se agregaron ${nuevoProducto1} unidades. El stock actual es de ${product.stock}.`);                          
-    //             }
-    //         }
-    //     }); 
-    // }    
-    return productoProvisorio;
-}
-
-const agregarProducto = (productoProvisorio) => {   
-    if (listaProductos.some(producto => (producto.modeloCubierta == productoProvisorio.modeloCubierta && producto.marca == productoProvisorio.marca))) {   
-        productoProvisorio.nuevo = 0;
-        agregarStock(productoProvisorio);         
-    } else {  
-        productoProvisorio.nuevo = 1;
-        agregarStock(productoProvisorio);  
-    }      
-    return listaProductos;
-};
-
-vehiculoNuevoProducto.onchange = () => {
-    productoProvisorio.tipoVehiculo = vehiculoNuevoProducto.value;    
-};
-
-//input
-modeloNuevoProducto.onchange= () => {
-    productoProvisorio.modeloCubierta = modeloNuevoProducto.value;
-};
-
-marcaNuevoProducto.onchange= () => {
-    productoProvisorio.marca = marcaNuevoProducto.value;
-};
-
-// stockNuevoProducto.onchange= () => {
-//     productoProvisorio.stock = stockNuevoProducto.value;
-// };
-
-// precioNuevoProducto.onchange= () => {
-//     productoProvisorio.precio = precioNuevoProducto.value;
-// };
-
-const rstProductoProvisorio = () => {
-    productoProvisorio.tipoVehiculo= "Auto";
-    productoProvisorio.modeloCubierta= "";
-    productoProvisorio.marca= "Pirelli";
-    productoProvisorio.precio= 0;
-    productoProvisorio.stock= 0;
-    productoProvisorio.nuevo= 0;
-    return productoProvisorio;
-};
-
-
-
-btnAgregarProducto.onclick = () => {
-    agregarProducto(productoProvisorio);
-};
-
-stockNuevoProducto.onchange= () => {
-    productoProvisorio.stock = parseInt(stockNuevoProducto.value);
-};
-
-precioNuevoProducto.onchange = () => {
-    productoProvisorio.precio = parseFloat(precioNuevoProducto.value);
-};
-
-btnAgregarProducto.onclick = () => {
-    agregarProducto(productoProvisorio);
-};
-
-btnAgregarProductoNuevo.onclick = () => {
-    let prodNuevo = new Producto(productoProvisorio.tipoVehiculo, productoProvisorio.modeloCubierta, productoProvisorio.marca, productoProvisorio.precio, productoProvisorio.stock);
-    listaProductos.push(prodNuevo);
-    primerVentana.style.display = "none";
-    precioNuevoProducto.style.display = "none";
-    parrafoProductoAgregado.style.display = "none"; 
-    btnReset.style.display = "none"; 
-
-    btnAgregarProductoNuevo.style.display = "none";
-
-    let nodo = document.createElement("div");
-    nodo.innerHTML = `<h2>Producto agregado</h2>
-                        <p>Modelo: ${productoProvisorio.modeloCubierta}</p>
-                        <p>Marca: ${productoProvisorio.marca}</p>`
-                        //<input type="reset" value="Volver" class="boton">`
-    segundaVentana.appendChild(nodo);
-    
-    rstProductoProvisorio(); 
-    
-};
-
-btnResetProdAgregado.onclick = () => {
-    primerVentana.style.display = "inline";
-    segundaVentana.style.display = "none";
-    formNuevoProducto.reset();
-    return productoProvisorio;
-};
-
-btnReset.onclick = () => {
-    primerVentana.style.display = "inline";
-    segundaVentana.style.display = "none";
-    formNuevoProducto.reset();
-    return productoProvisorio;
-};
-
-
-
-// btnProductoAgregado.onclick = () => {
-//     primerVentana.style.display = "inline";
-//     segundaVentana.style.display = "none";
-//     tercerVentana.style.display = "none";
-//     tercerVentana.innerHTML = `<h2>Producto agregado</h2>
-//                                 <p>Modelo: ${productoProvisorio.modeloCubierta}</p>
-//                                 <p>Marca: ${productoProvisorio.marca}</p>`
-//     rstProductoProvisorio();
-// }
-
-
-// btnAgregarProductoNuevo.onclick = () => {
-//     let prodNuevo = new Producto(productoProvisorio.tipoVehiculo, productoProvisorio.modeloCubierta, productoProvisorio.marca, productoProvisorio.precio, productoProvisorio.stock);
-//     listaProductos.push(prodNuevo);
-//     console.log(listaProductos);
-// };
-
 
 // const decision = (accionProducto) => { 
 //     switch (accionProducto) {

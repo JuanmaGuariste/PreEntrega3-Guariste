@@ -44,11 +44,15 @@ header {
 main {
   grid-area: main; }
   main .inicio {
-    background: linear-gradient(#970000, black), url("../img/fondo-contacto.jpg");
+    background: linear-gradient(#970000, black);
     height: calc(100vh - 56px);
     display: flex;
     justify-content: center;
     align-items: center; }
+    main .inicio h2 {
+      color: white; }
+    main .inicio p {
+      color: white; }
     main .inicio form {
       width: 450px;
       background: rgba(0, 0, 0, 0.4);
@@ -83,6 +87,31 @@ main {
           color: #fff;
           padding: 15px; }
           main .inicio form input .boton:hover {
+            cursor: pointer; }
+      main .inicio form div h2 {
+        color: #fff;
+        text-align: center;
+        margin: 0px;
+        font-size: 30px;
+        margin-bottom: 20px; }
+      main .inicio form div p {
+        color: white; }
+      main .inicio form div input {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 7px;
+        box-sizing: border-box;
+        font-size: 17px;
+        border: none;
+        font-family: 'Roboto', sans-serif; }
+        main .inicio form div input:hover {
+          background-color: #525252;
+          color: #fff; }
+        main .inicio form div input .boton {
+          background: #31384A;
+          color: #fff;
+          padding: 15px; }
+          main .inicio form div input .boton:hover {
             cursor: pointer; }
 
 footer {

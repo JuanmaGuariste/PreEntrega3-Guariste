@@ -37,24 +37,36 @@
         </header>
         <main>
             <section class="inicio">                
-                <form action="">
-                    <h2>Nuevo producto</h2> 
-                    <select name="select" >
-                        <option value="">Auto</option>
-                        <option value="">Moto</option>
-                        <option value="">Camioneta</option>
-                        <option value="">Camion</option>                        
-                    </select>
-                    <input type="text" placeholder="Modelo de cubierta" class="boton">
-                    <select name="select" >
-                        <option value="">Pirelli</option>
-                        <option value="">Bridgestone</option>
-                        <option value="">Firestone</option>
-                        <option value="">Kumo</option>                        
-                    </select>
-                    <!-- <input type="text" placeholder="Marca de cubierta" class="boton"> -->
-                    <input type="button" value="Agregar" class="boton">
-                    <input type="reset" value="Borrar" class="boton">
+                <form id="formNuevoProducto" >
+                    <div id="primerVentana">
+                        <h2>Nuevo producto</h2> 
+                        <p></p>
+                        <select id="vehiculo" name="select" >
+                            <option>Auto</option>
+                            <option>Moto</option>
+                            <option>Camioneta</option>
+                            <option>Camion</option>                        
+                        </select>
+                        <input id="modeloNuevoProducto" type="text" placeholder="Modelo de cubierta" class="boton">
+                        <select id="marcaNuevoProducto" name="select" >
+                            <option>Pirelli</option>
+                            <option>Bridgestone</optionvalue=>
+                            <option>Firestone</optionvalue=>
+                            <option>Fate</option>  
+                            <option>Kumo</option>    
+                            <option>Michelin</option> 
+                            <option>Goodyear</option>                     
+                        </select>                        
+                        <input id="stockNuevoProducto" type="text" placeholder="Ingrese cantidad" class="boton">
+                        <input id="btnAgregarProducto" type="button" value="Agregar" class="boton">
+                        <input type="reset" value="Borrar" class="boton">
+                    </div> 
+                    <div id="segundaVentana">                          
+                        <p id="parrafoProductoAgregado">¿A que precio por unidad?</p>
+                        <input id="precioNuevoProducto" type="text" placeholder="Ingrese precio" class="boton">
+                        <input id="btnAgregarProductoNuevo" type="button" value="Agregar" class="boton">
+                        <input id="btnReset" type="reset" value="Borrar" class="boton">
+                    </div>   
                 </form>
             </section>
         </main>        

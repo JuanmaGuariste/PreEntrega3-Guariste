@@ -3,50 +3,93 @@
 main{
     grid-area: main;
     .inicio{
-        background: linear-gradient(rgb(151, 0, 0), rgb(0, 0, 0)), url("../img/fondo-contacto.jpg");
+        // background: linear-gradient(rgb(151, 0, 0), rgb(0, 0, 0)), url("../img/fondo-contacto.jpg");
+        background: linear-gradient(rgb(151, 0, 0), rgb(0, 0, 0));
+
         height: calc(100vh - 56px);    
-        @include flex(flex, center, center);        
+        @include flex(flex, center, center); 
+        h2{
+            color: white;
+        }  
+        p{
+            color: white;
+        }     
         form{
-            width: 450px; 
-            background: rgba(0, 0, 0, 0.4);
-            padding: 10px 20px;
-            h2{
-                color: #fff;
-                text-align: center;
-                margin: 0px;
-                font-size: 30px;
-                margin-bottom: 20px;           
-            }
-            select{
-                width: 100%;
-                margin-bottom: 20px;
-                padding: 7px;
-                box-sizing: border-box;
-                font-size: 17px;
-                border: none;
-                font-family: 'Roboto', sans-serif;
-            }
-            input{
-                width: 100%;
-                margin-bottom: 20px;
-                padding: 7px;
-                box-sizing: border-box;
-                font-size: 17px;
-                border: none;
-                font-family: 'Roboto', sans-serif;
-                &:hover{
-                    background-color: #525252;
+            //div{
+                width: 450px; 
+                background: rgba(0, 0, 0, 0.4);
+                padding: 10px 20px;
+                h2{
                     color: #fff;
+                    text-align: center;
+                    margin: 0px;
+                    font-size: 30px;
+                    margin-bottom: 20px;           
                 }
-                .boton{
-                    background: #31384A;
-                    color: #fff;
-                    padding: 15px;
+                select{
+                    width: 100%;
+                    margin-bottom: 20px;
+                    padding: 7px;
+                    box-sizing: border-box;
+                    font-size: 17px;
+                    border: none;
+                    font-family: 'Roboto', sans-serif;
+                }
+                input{
+                    width: 100%;
+                    margin-bottom: 20px;
+                    padding: 7px;
+                    box-sizing: border-box;
+                    font-size: 17px;
+                    border: none;
+                    font-family: 'Roboto', sans-serif;
                     &:hover{
-                        cursor: pointer;  
+                        background-color: #525252;
+                        color: #fff;
                     }
-                }
-            }            
+                    .boton{
+                        background: #31384A;
+                        color: #fff;
+                        padding: 15px;
+                        &:hover{
+                            cursor: pointer;  
+                        }
+                    }
+                } 
+                div{
+                    h2{
+                        color: #fff;
+                        text-align: center;
+                        margin: 0px;
+                        font-size: 30px;
+                        margin-bottom: 20px;           
+                    }
+                    p{
+                        color:white;
+                    }
+                    input{
+                        width: 100%;
+                        margin-bottom: 20px;
+                        padding: 7px;
+                        box-sizing: border-box;
+                        font-size: 17px;
+                        border: none;
+                        font-family: 'Roboto', sans-serif;
+                        &:hover{
+                            background-color: #525252;
+                            color: #fff;
+                        }
+                        .boton{
+                            background: #31384A;
+                            color: #fff;
+                            padding: 15px;
+                            &:hover{
+                                cursor: pointer;  
+                            }
+                        }
+                    } 
+                }           
+          //  }
         }
     }
 }
