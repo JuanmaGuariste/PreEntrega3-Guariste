@@ -71,7 +71,7 @@ main {
         font-size: 17px;
         border: none;
         font-family: 'Roboto', sans-serif; }
-      main .inicio form input {
+      main .inicio form .boton {
         width: 100%;
         margin-bottom: 20px;
         padding: 7px;
@@ -79,14 +79,39 @@ main {
         font-size: 17px;
         border: none;
         font-family: 'Roboto', sans-serif; }
-        main .inicio form input:hover {
+        main .inicio form .boton:hover {
           background-color: #525252;
           color: #fff; }
-        main .inicio form input .boton {
+        main .inicio form .boton .boton {
           background: #31384A;
           color: #fff;
           padding: 15px; }
-          main .inicio form input .boton:hover {
+          main .inicio form .boton .boton:hover {
+            cursor: pointer; }
+        main .inicio form .boton .inputError {
+          background: #31384A;
+          color: #fff;
+          padding: 15px; }
+          main .inicio form .boton .inputError:hover {
+            cursor: pointer; }
+      main .inicio form .inputError {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 7px;
+        box-sizing: border-box;
+        font-size: 17px;
+        border: none;
+        font-family: 'Roboto', sans-serif;
+        border: red solid 2px; }
+        main .inicio form .inputError:hover {
+          background-color: #525252;
+          color: #fff; }
+        main .inicio form .inputError .boton {
+          background: #31384A;
+          color: #fff;
+          padding: 15px;
+          border: #03ff25 solid 8px; }
+          main .inicio form .inputError .boton:hover {
             cursor: pointer; }
       main .inicio form div h2 {
         color: #fff;

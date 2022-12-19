@@ -12,12 +12,14 @@ const btnAgregarProductoNuevo = document.getElementById("btnAgregarProductoNuevo
 const btnProductoAgregado = document.getElementById("btnProductoAgregado");
 const btnReset = document.getElementById("btnReset");
 const tercerVentana = document.getElementById("tercerVentana");
-const parrafoProductoAgregado = document.getElementById("parrafoProductoAgregado");
+const tituloPrecioProd = document.getElementById("tituloPrecioProd");
+const btnResetProdAgregado = document.getElementById("btnResetProdAgregado");
+const btnRstProducto = document.getElementById("btnRstProducto");
+const tituloProductoNuevo = document.getElementById("tituloProductoNuevo");
+const vehiculo = document.getElementById("vehiculo");
 
 
-
-
-
+const currentHTML = document.getElementById('primerVentana').innerHTML;
 
 
 
@@ -42,9 +44,9 @@ const productoProvisorio = {
     tipoVehiculo: "Auto",
     modeloCubierta: "",
     marca: "Pirelli",
-    precio: 0,
-    stock: 0,
-    nuevo: 0,
+    precio: -1,
+    stock: -1,
+    nuevo: -1,
 }
 
 let listaProductos = [
@@ -72,6 +74,8 @@ cuerpoDelDocumento.onload = init;
 
 function init() {
     segundaVentana.style.display = "none";
+    btnResetProdAgregado.style.display = "none";
+    rstProductoProvisorio();
 }
 
 const vender = (modeloCubierta, marca) => {  
@@ -254,10 +258,33 @@ const agregarStock = (productoProvisorio) => {
     //primerVentana.style.display = "none"; 
     listaProductos.forEach(product => {  
         if (product.modeloCubierta == productoProvisorio.modeloCubierta && product.marca == productoProvisorio.marca) {           
-            product.stock+= productoProvisorio.stock;                                    
+            product.stock+= productoProvisorio.stock; 
+            //primerVentana.style.display = "none";
+            //segundaVentana.style.display = "inline";
+            vehiculo.style.display = "none";
+            tituloPrecioProd.style.display = "none"; 
+            modeloNuevoProducto.style.display = "none"; 
+            marcaNuevoProducto.style.display = "none"; 
+            stockNuevoProducto.style.display = "none"; 
+            btnAgregarProducto.style.display = "none"; 
+            btnRstProducto.style.display = "none";    
+            tituloProductoNuevo.innerHTML = `Producto agregado`
+            //btnReset.style.display = "none"; 
+            //btnAgregarProductoNuevo.style.display = "none";  
+            btnResetProdAgregado.style.display = "inline"; 
+            //precioNuevoProducto.setAttribute("class", "boton");            
+            let noddo = document.createElement("div");            
+            noddo.innerHTML = ` <p>Vehículo: ${product.tipoVehiculo}</p>
+                                <p>Modelo: ${product.modeloCubierta}</p>
+                                <p>Marca: ${product.marca}</p>
+                                <p>Stock adicionado: ${productoProvisorio.stock}</p>
+                                <p>Stock total: ${product.stock}</p>
+                                <p>Precio por unidad: $${product.precio}</p>`
+            primerVentana.appendChild(noddo);                                                
         }
+
     });                     
-    } else {
+    } else if(productoProvisorio.nuevo == 1){
         primerVentana.style.display = "none";
         segundaVentana.style.display = "inline";
     }   
@@ -317,16 +344,28 @@ const rstProductoProvisorio = () => {
     productoProvisorio.tipoVehiculo= "Auto";
     productoProvisorio.modeloCubierta= "";
     productoProvisorio.marca= "Pirelli";
-    productoProvisorio.precio= 0;
-    productoProvisorio.stock= 0;
-    productoProvisorio.nuevo= 0;
+    productoProvisorio.precio= -1;
+    productoProvisorio.stock= -1;
+    productoProvisorio.nuevo= -1;
     return productoProvisorio;
 };
 
 
 
 btnAgregarProducto.onclick = () => {
-    agregarProducto(productoProvisorio);
+    if (productoProvisorio.modeloCubierta == "" && productoProvisorio.stock <= 0){
+        modeloNuevoProducto.setAttribute("class", "inputError");
+        stockNuevoProducto.setAttribute("class", "inputError");
+    } else if (productoProvisorio.modeloCubierta == ""){        
+        modeloNuevoProducto.setAttribute("class", "inputError");
+        stockNuevoProducto.setAttribute("class", "boton");
+    } else if (productoProvisorio.stock <= 0){
+        modeloNuevoProducto.setAttribute("class", "boton");
+        stockNuevoProducto.setAttribute("class", "inputError");
+    } else {
+        agregarProducto(productoProvisorio);
+    }
+    
 };
 
 stockNuevoProducto.onchange= () => {
@@ -337,35 +376,58 @@ precioNuevoProducto.onchange = () => {
     productoProvisorio.precio = parseFloat(precioNuevoProducto.value);
 };
 
-btnAgregarProducto.onclick = () => {
-    agregarProducto(productoProvisorio);
-};
+// btnAgregarProducto.onclick = () => {
+//     agregarProducto(productoProvisorio);
+// };
 
 btnAgregarProductoNuevo.onclick = () => {
-    let prodNuevo = new Producto(productoProvisorio.tipoVehiculo, productoProvisorio.modeloCubierta, productoProvisorio.marca, productoProvisorio.precio, productoProvisorio.stock);
-    listaProductos.push(prodNuevo);
-    primerVentana.style.display = "none";
-    precioNuevoProducto.style.display = "none";
-    parrafoProductoAgregado.style.display = "none"; 
-    btnReset.style.display = "none"; 
-
-    btnAgregarProductoNuevo.style.display = "none";
-
-    let nodo = document.createElement("div");
-    nodo.innerHTML = `<h2>Producto agregado</h2>
-                        <p>Modelo: ${productoProvisorio.modeloCubierta}</p>
-                        <p>Marca: ${productoProvisorio.marca}</p>`
-                        //<input type="reset" value="Volver" class="boton">`
-    segundaVentana.appendChild(nodo);
-    
-    rstProductoProvisorio(); 
-    
+    if (productoProvisorio.precio < 0){
+        precioNuevoProducto.setAttribute("class", "inputError");
+    } else {
+        primerVentana.style.display = "none";
+        precioNuevoProducto.style.display = "none";
+        tituloPrecioProd.style.display = "none"; 
+        btnReset.style.display = "none"; 
+        btnAgregarProductoNuevo.style.display = "none";  
+        btnResetProdAgregado.style.display = "inline"; 
+        precioNuevoProducto.setAttribute("class", "boton");
+        let prodNuevo = new Producto(productoProvisorio.tipoVehiculo, productoProvisorio.modeloCubierta, productoProvisorio.marca, productoProvisorio.precio, productoProvisorio.stock);
+        listaProductos.push(prodNuevo);
+        let nodo = document.createElement("div");
+        nodo.innerHTML = `<h2>Producto agregado</h2>
+                            <p>Vehículo: ${productoProvisorio.tipoVehiculo}</p>
+                            <p>Modelo: ${productoProvisorio.modeloCubierta}</p>
+                            <p>Marca: ${productoProvisorio.marca}</p>
+                            <p>Stock adicionado: ${productoProvisorio.stock}</p>
+                            <p>Precio por unidad: $${productoProvisorio.precio}</p>`
+        segundaVentana.appendChild(nodo);   
+        //rstProductoProvisorio(); 
+    }
 };
 
-btnResetProdAgregado.onclick = () => {
+btnRstProducto.onclick = () => {
     primerVentana.style.display = "inline";
     segundaVentana.style.display = "none";
+    modeloNuevoProducto.setAttribute("class", "boton");
+    stockNuevoProducto.setAttribute("class", "boton");
     formNuevoProducto.reset();
+    rstProductoProvisorio();
+    return productoProvisorio;
+};
+
+
+
+btnResetProdAgregado.onclick = () => {
+    if(productoProvisorio.nuevo == 0){
+        primerVentana.innerHTML = currentHTML;//El problema está aca, no restaura las propiedades.. Habria que volver todo a manopla
+        btnResetProdAgregado.style.display = "none"; 
+    } else if(productoProvisorio.nuevo == 1){
+        primerVentana.style.display = "inline";
+        segundaVentana.style.display = "none";
+        btnResetProdAgregado.style.display = "none";
+    }
+    formNuevoProducto.reset(); 
+    rstProductoProvisorio();  
     return productoProvisorio;
 };
 

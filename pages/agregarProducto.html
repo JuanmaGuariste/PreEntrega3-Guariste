@@ -39,8 +39,7 @@
             <section class="inicio">                
                 <form id="formNuevoProducto" >
                     <div id="primerVentana">
-                        <h2>Nuevo producto</h2> 
-                        <p></p>
+                        <h2 id="tituloProductoNuevo">Nuevo producto</h2> 
                         <select id="vehiculo" name="select" >
                             <option>Auto</option>
                             <option>Moto</option>
@@ -59,14 +58,15 @@
                         </select>                        
                         <input id="stockNuevoProducto" type="text" placeholder="Ingrese cantidad" class="boton">
                         <input id="btnAgregarProducto" type="button" value="Agregar" class="boton">
-                        <input type="reset" value="Borrar" class="boton">
+                        <input id="btnRstProducto" type="reset" value="Borrar" class="boton">
                     </div> 
-                    <div id="segundaVentana">                          
-                        <p id="parrafoProductoAgregado">¿A que precio por unidad?</p>
+                    <div id="segundaVentana">  
+                        <h2 id="tituloPrecioProd">¿A que precio por unidad?</h2>                         
                         <input id="precioNuevoProducto" type="text" placeholder="Ingrese precio" class="boton">
                         <input id="btnAgregarProductoNuevo" type="button" value="Agregar" class="boton">
                         <input id="btnReset" type="reset" value="Borrar" class="boton">
-                    </div>   
+                    </div> 
+                    <input id="btnResetProdAgregado" type="reset" value="Volver" class="boton">  
                 </form>
             </section>
         </main>        

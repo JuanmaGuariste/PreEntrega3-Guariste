@@ -35,14 +35,14 @@ main{
                     border: none;
                     font-family: 'Roboto', sans-serif;
                 }
-                input{
+                .boton{
                     width: 100%;
                     margin-bottom: 20px;
                     padding: 7px;
                     box-sizing: border-box;
                     font-size: 17px;
                     border: none;
-                    font-family: 'Roboto', sans-serif;
+                    font-family: 'Roboto', sans-serif;                    
                     &:hover{
                         background-color: #525252;
                         color: #fff;
@@ -55,7 +55,38 @@ main{
                             cursor: pointer;  
                         }
                     }
-                } 
+                    .inputError{
+                        background: #31384A;
+                        color: #fff;
+                        padding: 15px;
+                        &:hover{
+                            cursor: pointer;  
+                        }
+                    }
+                }
+                .inputError{
+                    width: 100%;
+                    margin-bottom: 20px;
+                    padding: 7px;
+                    box-sizing: border-box;
+                    font-size: 17px;
+                    border: none;
+                    font-family: 'Roboto', sans-serif;
+                    border: rgb(255, 0, 0) solid 2px;
+                    &:hover{
+                        background-color: #525252;
+                        color: #fff;
+                    }
+                    .boton{
+                        background: #31384A;
+                        color: #fff;
+                        padding: 15px;
+                        border: rgb(3, 255, 37) solid 8px;
+                        &:hover{
+                            cursor: pointer;  
+                        }
+                    }
+                }
                 div{
                     h2{
                         color: #fff;
