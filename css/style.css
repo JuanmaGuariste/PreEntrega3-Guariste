@@ -49,10 +49,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: center; }
-    main .inicio h2 {
-      color: white; }
-    main .inicio p {
-      color: white; }
     main .inicio form {
       width: 450px;
       background: rgba(0, 0, 0, 0.4);
@@ -113,7 +109,7 @@ main {
           border: #03ff25 solid 8px; }
           main .inicio form .inputError .boton:hover {
             cursor: pointer; }
-      main .inicio form div h2 {
+      main .inicio form div h3 {
         color: #fff;
         text-align: center;
         margin: 0px;

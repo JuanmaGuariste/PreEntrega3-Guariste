@@ -8,12 +8,6 @@ main{
 
         height: calc(100vh - 56px);    
         @include flex(flex, center, center); 
-        h2{
-            color: white;
-        }  
-        p{
-            color: white;
-        }     
         form{
             //div{
                 width: 450px; 
@@ -88,7 +82,7 @@ main{
                     }
                 }
                 div{
-                    h2{
+                    h3{
                         color: #fff;
                         text-align: center;
                         margin: 0px;

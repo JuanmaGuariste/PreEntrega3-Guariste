@@ -11,18 +11,15 @@ const precioNuevoProducto = document.getElementById("precioNuevoProducto");
 const btnAgregarProductoNuevo = document.getElementById("btnAgregarProductoNuevo");
 const btnProductoAgregado = document.getElementById("btnProductoAgregado");
 const btnReset = document.getElementById("btnReset");
-const tercerVentana = document.getElementById("tercerVentana");
 const tituloPrecioProd = document.getElementById("tituloPrecioProd");
 const btnResetProdAgregado = document.getElementById("btnResetProdAgregado");
 const btnRstProducto = document.getElementById("btnRstProducto");
 const tituloProductoNuevo = document.getElementById("tituloProductoNuevo");
 const vehiculo = document.getElementById("vehiculo");
 
-
-const currentHTML = document.getElementById('primerVentana').innerHTML;
-
-
-
+const tercerVentana = document.getElementById("tercerVentana");
+const tituloTercerVentana = document.getElementById("tituloTercerVentana");
+const divTercerVentana = document.getElementById("divTercerVentana");
 
 
 let accionProducto = 0;
@@ -74,7 +71,8 @@ cuerpoDelDocumento.onload = init;
 
 function init() {
     segundaVentana.style.display = "none";
-    btnResetProdAgregado.style.display = "none";
+    tercerVentana.style.display = "none";
+    btnResetProdAgregado.style.display = "none";    
     rstProductoProvisorio();
 }
 
@@ -255,56 +253,35 @@ const nuevoPrecio = (modeloCubierta, marca) => {
 
 const agregarStock = (productoProvisorio) => { 
     if(productoProvisorio.nuevo == 0){
-    //primerVentana.style.display = "none"; 
     listaProductos.forEach(product => {  
         if (product.modeloCubierta == productoProvisorio.modeloCubierta && product.marca == productoProvisorio.marca) {           
             product.stock+= productoProvisorio.stock; 
-            //primerVentana.style.display = "none";
-            //segundaVentana.style.display = "inline";
+            primerVentana.style.display = "none";
+            segundaVentana.style.display = "none";
+            tercerVentana.style.display = "inline";
             vehiculo.style.display = "none";
-            tituloPrecioProd.style.display = "none"; 
             modeloNuevoProducto.style.display = "none"; 
             marcaNuevoProducto.style.display = "none"; 
             stockNuevoProducto.style.display = "none"; 
             btnAgregarProducto.style.display = "none"; 
-            btnRstProducto.style.display = "none";    
-            tituloProductoNuevo.innerHTML = `Producto agregado`
-            //btnReset.style.display = "none"; 
-            //btnAgregarProductoNuevo.style.display = "none";  
+            btnRstProducto.style.display = "none";   
             btnResetProdAgregado.style.display = "inline"; 
-            //precioNuevoProducto.setAttribute("class", "boton");            
-            let noddo = document.createElement("div");            
-            noddo.innerHTML = ` <p>Vehículo: ${product.tipoVehiculo}</p>
+            divTercerVentana.innerHTML = ` <p>Vehículo: ${product.tipoVehiculo}</p>
                                 <p>Modelo: ${product.modeloCubierta}</p>
                                 <p>Marca: ${product.marca}</p>
                                 <p>Stock adicionado: ${productoProvisorio.stock}</p>
                                 <p>Stock total: ${product.stock}</p>
                                 <p>Precio por unidad: $${product.precio}</p>`
-            primerVentana.appendChild(noddo);                                                
         }
-
     });                     
     } else if(productoProvisorio.nuevo == 1){
         primerVentana.style.display = "none";
         segundaVentana.style.display = "inline";
-    }   
-    // let nuevoProducto1 = prompt("¿Cuántos desea agregar?"); 
-    // if (validarValor(nuevoProducto1)) {
-    //     nuevoProducto1 = parseInt(nuevoProducto1);
-    //     listaProductos.forEach(product => {  
-    //         if (product.modeloCubierta == modeloCubierta && product.marca == marca) {
-    //             if ((nuevoProducto1 <= 0) ) { 
-    //                 alert(`Por favor, ingrese una cantidad mayor a cero.`);  
-    //             } else if (nuevoProducto1 == 1) {
-    //                 product.stock += nuevoProducto1;
-    //                 alert(`Se agregó 1 unidad. El stock actual es de ${product.stock}.`);                         
-    //             } else {
-    //                 product.stock+= nuevoProducto1;
-    //                 alert(`Se agregaron ${nuevoProducto1} unidades. El stock actual es de ${product.stock}.`);                          
-    //             }
-    //         }
-    //     }); 
-    // }    
+        tercerVentana.style.display = "none";
+        precioNuevoProducto.style.display = "inline";
+        btnAgregarProductoNuevo.style.display = "inline";
+        btnReset.style.display = "inline";       
+    }      
     return productoProvisorio;
 }
 
@@ -323,22 +300,14 @@ vehiculoNuevoProducto.onchange = () => {
     productoProvisorio.tipoVehiculo = vehiculoNuevoProducto.value;    
 };
 
-//input
+
 modeloNuevoProducto.onchange= () => {
     productoProvisorio.modeloCubierta = modeloNuevoProducto.value;
 };
 
 marcaNuevoProducto.onchange= () => {
     productoProvisorio.marca = marcaNuevoProducto.value;
-};
-
-// stockNuevoProducto.onchange= () => {
-//     productoProvisorio.stock = stockNuevoProducto.value;
-// };
-
-// precioNuevoProducto.onchange= () => {
-//     productoProvisorio.precio = precioNuevoProducto.value;
-// };
+}; 
 
 const rstProductoProvisorio = () => {
     productoProvisorio.tipoVehiculo= "Auto";
@@ -349,8 +318,6 @@ const rstProductoProvisorio = () => {
     productoProvisorio.nuevo= -1;
     return productoProvisorio;
 };
-
-
 
 btnAgregarProducto.onclick = () => {
     if (productoProvisorio.modeloCubierta == "" && productoProvisorio.stock <= 0){
@@ -376,32 +343,25 @@ precioNuevoProducto.onchange = () => {
     productoProvisorio.precio = parseFloat(precioNuevoProducto.value);
 };
 
-// btnAgregarProducto.onclick = () => {
-//     agregarProducto(productoProvisorio);
-// };
-
 btnAgregarProductoNuevo.onclick = () => {
     if (productoProvisorio.precio < 0){
         precioNuevoProducto.setAttribute("class", "inputError");
     } else {
         primerVentana.style.display = "none";
+        segundaVentana.style.display = "none";
+        tercerVentana.style.display = "inline";
         precioNuevoProducto.style.display = "none";
-        tituloPrecioProd.style.display = "none"; 
-        btnReset.style.display = "none"; 
-        btnAgregarProductoNuevo.style.display = "none";  
+        btnAgregarProductoNuevo.style.display = "none";
+        btnReset.style.display = "none";
         btnResetProdAgregado.style.display = "inline"; 
-        precioNuevoProducto.setAttribute("class", "boton");
         let prodNuevo = new Producto(productoProvisorio.tipoVehiculo, productoProvisorio.modeloCubierta, productoProvisorio.marca, productoProvisorio.precio, productoProvisorio.stock);
-        listaProductos.push(prodNuevo);
-        let nodo = document.createElement("div");
-        nodo.innerHTML = `<h2>Producto agregado</h2>
+        listaProductos.push(prodNuevo);                  
+        divTercerVentana.innerHTML = `
                             <p>Vehículo: ${productoProvisorio.tipoVehiculo}</p>
                             <p>Modelo: ${productoProvisorio.modeloCubierta}</p>
                             <p>Marca: ${productoProvisorio.marca}</p>
                             <p>Stock adicionado: ${productoProvisorio.stock}</p>
                             <p>Precio por unidad: $${productoProvisorio.precio}</p>`
-        segundaVentana.appendChild(nodo);   
-        //rstProductoProvisorio(); 
     }
 };
 
@@ -415,17 +375,17 @@ btnRstProducto.onclick = () => {
     return productoProvisorio;
 };
 
-
-
 btnResetProdAgregado.onclick = () => {
-    if(productoProvisorio.nuevo == 0){
-        primerVentana.innerHTML = currentHTML;//El problema está aca, no restaura las propiedades.. Habria que volver todo a manopla
-        btnResetProdAgregado.style.display = "none"; 
-    } else if(productoProvisorio.nuevo == 1){
-        primerVentana.style.display = "inline";
-        segundaVentana.style.display = "none";
-        btnResetProdAgregado.style.display = "none";
-    }
+    primerVentana.style.display = 'inline'; 
+    tercerVentana.style.display = 'none'; 
+    vehiculo.style.display = "inline";
+    modeloNuevoProducto.style.display = "inline";
+    marcaNuevoProducto.style.display = "inline";
+    stockNuevoProducto.style.display = "inline";
+    btnAgregarProducto.style.display = "inline";
+    btnRstProducto.style.display = "inline";
+    btnResetProdAgregado.style.display = "none"; 
+    segundaVentana.style.display = "none";
     formNuevoProducto.reset(); 
     rstProductoProvisorio();  
     return productoProvisorio;
@@ -437,25 +397,6 @@ btnReset.onclick = () => {
     formNuevoProducto.reset();
     return productoProvisorio;
 };
-
-
-
-// btnProductoAgregado.onclick = () => {
-//     primerVentana.style.display = "inline";
-//     segundaVentana.style.display = "none";
-//     tercerVentana.style.display = "none";
-//     tercerVentana.innerHTML = `<h2>Producto agregado</h2>
-//                                 <p>Modelo: ${productoProvisorio.modeloCubierta}</p>
-//                                 <p>Marca: ${productoProvisorio.marca}</p>`
-//     rstProductoProvisorio();
-// }
-
-
-// btnAgregarProductoNuevo.onclick = () => {
-//     let prodNuevo = new Producto(productoProvisorio.tipoVehiculo, productoProvisorio.modeloCubierta, productoProvisorio.marca, productoProvisorio.precio, productoProvisorio.stock);
-//     listaProductos.push(prodNuevo);
-//     console.log(listaProductos);
-// };
 
 
 // const decision = (accionProducto) => { 
