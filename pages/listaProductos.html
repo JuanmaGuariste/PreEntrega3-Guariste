@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <title>Document</title>
 </head>
-<body>
+<body id="bodyListaProductos">
     <div class="grid-contenedor">
         <header>
             <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
@@ -37,18 +37,18 @@
         </header>
         <main>
             <section class="inicio">
-                <h2>LISTA DE PRODUCTOS</h2>
-                <!-- <form action="">
-                    <h2>Control de stock e inventario</h2>           
-                    <input type="button" onclick="location.href='./pages/agregarProducto.html'" value="Agregar un producto" class="boton">         
-                    <input type="button" value="Ventas" class="boton">
-                    <input type="button" value="Consultar stock" class="boton">
-                    <input type="button" value="Lista de productos" class="boton">
-                    <input type="button" value="Consultar precios" class="boton">
-                    <input type="button" value="Cambiar precios" class="boton">
-                    <input type="button" value="Filtrar por modelo" class="boton">
-                    <input type="button" value="Cerrar seción" class="boton">
-                </form> -->
+                <div>
+                    <h2>LISTA DE PRODUCTOS</h2>
+                    <table id="productos">
+                        <tr>
+                            <th>Vehículo</th>
+                            <th>Modelo</th>
+                            <th>Marca</th>
+                            <th>Stock</th>
+                            <th>Precio</th>
+                        </tr>
+                    </table>
+                </div>
             </section>
         </main>        
         <footer>
