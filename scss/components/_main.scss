@@ -8,6 +8,9 @@ main{
 
         height: calc(100vh - 56px);    
         @include flex(flex, center, center);
+        h2{
+            color: #fff;
+        }
         div{
             h2{
                 color: #fff;

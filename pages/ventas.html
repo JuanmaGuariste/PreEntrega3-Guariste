@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <title>Document</title>
 </head>
-<body>
+<body id="bodyVentas">
     <div class="grid-contenedor">
         <header>
             <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
@@ -38,18 +38,25 @@
         <main>
             <section class="inicio">
                 <form action="">
-                    <h2>Venta de producto</h2>                     
-                    <input type="text" placeholder="Modelo de cubierta" class="boton">
-                    <select name="select" >
-                        <option value="">Pirelli</option>
-                        <option value="">Bridgestone</option>
-                        <option value="">Firestone</option>
-                        <option value="">Kumo</option>                        
-                    </select>
-                    <input type="text" placeholder="Cantidad vendida" class="boton">
-                    <input type="button" value="Consultar precio actual" class="boton">
-                    <input type="button" value="Vender" class="boton">
-                    <input type="reset" value="Cancelar" class="boton">
+                    <div id="primerVentanaVentas">
+                        <h2>Venta de producto</h2>                     
+                        <input id="modeloProductoVenta" type="text" placeholder="Modelo de cubierta" class="boton">
+                        <select id="marcaProductoVenta" name="select" >
+                            <option>Pirelli</option>
+                            <option>Bridgestone</optionvalue=>
+                            <option>Firestone</optionvalue=>
+                            <option>Fate</option>  
+                            <option>Kumo</option>    
+                            <option>Michelin</option> 
+                            <option>Goodyear</option>                         
+                        </select>
+                        <p id="stockParaVentas"></p>
+                        <input id="cantidadVendida" type="text" placeholder="Cantidad vendida" class="boton">
+                        <!-- <input type="button" value="Consultar precio actual" class="boton"> -->
+                        
+                        <input id="btnVenderProducto" type="button" value="Vender" class="boton">
+                        <input id="rstVentas" type="reset" value="Cancelar" class="boton">
+                    </div>
                 </form>
             </section>
         </main>        
