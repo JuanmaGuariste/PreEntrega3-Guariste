@@ -37,7 +37,7 @@
         </header>
         <main>
             <section class="inicio">
-                <form action="">
+                <form id="formVentas">
                     <div id="primerVentanaVentas">
                         <h2>Venta de producto</h2>                     
                         <input id="modeloProductoVenta" type="text" placeholder="Modelo de cubierta" class="boton">
@@ -51,12 +51,27 @@
                             <option>Goodyear</option>                         
                         </select>
                         <p id="stockParaVentas"></p>
-                        <input id="cantidadVendida" type="text" placeholder="Cantidad vendida" class="boton">
-                        <!-- <input type="button" value="Consultar precio actual" class="boton"> -->
                         
-                        <input id="btnVenderProducto" type="button" value="Vender" class="boton">
+                        <!-- <input type="button" value="Consultar precio actual" class="boton"> -->
+                        <input id="btnCantidadProducto" type="button" value="Agregar cantidad" class="boton">
                         <input id="rstVentas" type="reset" value="Cancelar" class="boton">
                     </div>
+                    <div id="segundaVentanaVentas"> 
+                        <h2 id="tituloAgregarVenta">¿Cuántas unidades?</h2> 
+                        <input id="cantidadVendida" type="text" placeholder="Cantidad vendida" class="boton">
+                        <input id="btnVenderProducto" type="button" value="Vender" class="boton">
+                    </div> 
+                    <div id="tercerVentanaVentas"> 
+                        <h2 id="tituloSinStock">No hay stock del producto</h2> 
+                        <input id="btnResetVentas" type="reset" value="Volver" class="boton"> 
+                        <!-- <input id="cantidadVendida" type="text" placeholder="Cantidad vendida" class="boton">
+                        <input id="btnVenderProducto" type="button" value="Vender" class="boton"> -->
+                    </div> 
+                    <div id="cuartaVentanaVentas"> 
+                        <h2 id="tituloVendido">Producto vendido</h2> 
+                        <p id="parrafoVendido"></p>
+                        <input id="btnResetVendido" type="reset" value="Volver" class="boton"> 
+                    </div> 
                 </form>
             </section>
         </main>        

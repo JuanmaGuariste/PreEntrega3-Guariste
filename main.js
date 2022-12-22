@@ -19,12 +19,34 @@ const productos = document.getElementById("productos");
 
 /*--------------------Ventas---------------------------------------*/
 const primerVentanaVentas = document.getElementById("primerVentanaVentas");
+const segundaVentanaVentas = document.getElementById("segundaVentanaVentas");
 const modeloProductoVenta = document.getElementById("modeloProductoVenta");
 const marcaProductoVenta = document.getElementById("marcaProductoVenta");
 const stockParaVentas = document.getElementById("stockParaVentas");
 const cantidadVendida = document.getElementById("cantidadVendida");
 const btnVenderProducto = document.getElementById("btnVenderProducto");
 const rstVentas = document.getElementById("rstVentas");
+const formVentas = document.getElementById("formVentas");
+const btnCantidadProducto = document.getElementById("btnCantidadProducto");
+const tituloAgregarVenta = document.getElementById("tituloAgregarVenta");
+const tercerVentanaVentas = document.getElementById("tercerVentanaVentas");
+const tituloSinStock = document.getElementById("tituloSinStock");
+const btnResetVentas = document.getElementById("btnResetVentas");
+
+const cuartaVentanaVentas = document.getElementById("cuartaVentanaVentas");
+const tituloVendido = document.getElementById("tituloVendido");
+const parrafoVendido = document.getElementById("parrafoVendido");
+const btnResetVendido = document.getElementById("btnResetVendido");
+
+
+
+
+
+
+
+
+
+
 
 
 //let accionProducto = 0;
@@ -148,6 +170,7 @@ const rstProductoProvisorio = () => {
     productoProvisorio.nuevo= -1;
     return productoProvisorio;
 };
+
 
 const app = {
     inicio: () => {
@@ -291,13 +314,28 @@ const app = {
         //     btnResetProdAgregado.style.display = "none";    
         //     rstProductoProvisorio();
         // }
+        cuerpoDelDocumento.onload = initing;
 
+        function initing() {
+            //btnVenderProducto.style.display = "none";
+           // cantidadVendida.style.display = "none";
+            segundaVentanaVentas.style.display = "none";
+            tercerVentanaVentas.style.display = "none";
+            cuartaVentanaVentas.style.display = "none";
+           // tituloAgregarVenta.style.display = "none";
+
+            
+            
+            rstProductoProvisorio();
+        }
         modeloProductoVenta.onchange= () => {
             productoProvisorio.modeloCubierta = modeloProductoVenta.value;
+            //mostrarStock();
         };
 
         marcaProductoVenta.onchange= () => {
             productoProvisorio.marca = marcaProductoVenta.value;
+            //mostrarStock();
         }; 
 
         cantidadVendida.onchange= () => {
@@ -305,6 +343,109 @@ const app = {
         };
 
         btnVenderProducto.onclick = () => {
+            if (productoProvisorio.stock <= 0){
+                cantidadVendida.setAttribute("class", "inputError");
+            } else {             
+                //segundaVentanaVentas.style.display = "none";
+                
+               // tercerVentanaVentas.style.display = "none";
+               segundaVentanaVentas.style.display = "none";
+                cuartaVentanaVentas.style.display = "inline";
+                
+                tituloVendido.style.display = "block";
+                parrafoVendido.style.display = "block";
+                btnResetVendido.style.display = "block";
+                btnResetVentas.style.display = "none";
+                listaProductos.forEach(product => {  
+                    if (product.modeloCubierta == productoProvisorio.modeloCubierta && product.marca == productoProvisorio.marca) {   
+                        if ((product.stock - productoProvisorio.stock) == 0) {
+                            product.stock -= productoProvisorio.stock;
+                            if (productoProvisorio.stock == 1) {
+                                parrafoVendido.innerText=`¡Se descontó 1 unidad!\n`; 
+                            } else {
+                                parrafoVendido.innerText=`¡Se descontaron ${ventaProducto} unidades!\n`; 
+                            }
+                            parrafoVendido.innerText +=`No hay stock del producto. Por favor, asegúrese de agregar unidades.`;      
+                        } else if ((product.stock - productoProvisorio.stock) == 1) {
+                            product.stock -= productoProvisorio.stock;
+                            if (productoProvisorio.stock == 1) {
+                                parrafoVendido.innerText= `¡Se descontó 1 unidad!`; 
+                            } else {
+                                parrafoVendido.innerText= `¡Se descontaron ${productoProvisorio.stock} unidades!`; 
+                            }
+                            parrafoVendido.innerText= `Hay poco stock, solo queda 1 unidad disponible.`;         
+                        } else if ((product.stock - productoProvisorio.stock) < 10) {
+                            product.stock -= productoProvisorio.stock;
+                            parrafoVendido.innerText= `¡Se descontaron ${productoProvisorio.stock} unidades!`; 
+                            if (product.stock > 0) {
+                                parrafoVendido.innerText= `Hay poco stock, solo quedan ${product.stock} unidades disponibles.`; 
+                            } else {
+                                parrafoVendido.innerText= `No hay stock del producto. Por favor, asegúrese de agregar unidades.`; 
+                            }
+                        } else {
+                            parrafoVendido.innerText=  `hola`;
+                            product.stock -= productoProvisorio.stock;
+                            parrafoVendido.innerText= `¡Se descontaron ${productoProvisorio.stock} unidades!`;
+                            parrafoVendido.innerText= `Hay ${product.stock} unidades disponibles.`; 
+                        }
+                    }
+                });
+                localStorage.setItem("listaProducto", JSON.stringify(listaProductos)); 
+                rstProductoProvisorio();
+                formVentas.reset();
+
+            }
+        
+
+        };
+
+        // listaProductos.forEach(product => {
+        //     if (product.modeloCubierta == productoProvisorio.modeloCubierta && product.marca == productoProvisorio.marca){           
+
+                    // if ((product.stock - productoProvisorio.stock) == 0) {
+                    //     product.stock -= productoProvisorio.stock;
+                    //     if (productoProvisorio.stock == 1) {
+                    //         stockParaVentas.innerText=`¡Se descontó 1 unidad!`; 
+                    //     } else {
+                    //         stockParaVentas.innerText=`¡Se descontaron ${ventaProducto} unidades!`; 
+                    //     }
+                    //     stockParaVentas.innerText=`No hay stock del producto. Por favor, asegúrese de agregar unidades.`;      
+                    // } else if ((product.stock - productoProvisorio.stock) == 1) {
+                    //     product.stock -= productoProvisorio.stock;
+                    //     if (productoProvisorio.stock == 1) {
+                    //         stockParaVentas.innerText= `¡Se descontó 1 unidad!`; 
+                    //     } else {
+                    //         stockParaVentas.innerText= `¡Se descontaron ${productoProvisorio.stock} unidades!`; 
+                    //     }
+                    //     stockParaVentas.innerText= `Hay poco stock, solo queda 1 unidad disponible.`;         
+                    // } else if ((product.stock - productoProvisorio.stock) < 10) {
+                    //     product.stock -= productoProvisorio.stock;
+                    //     stockParaVentas.innerText= `¡Se descontaron ${productoProvisorio.stock} unidades!`; 
+                    //     if (product.stock > 0) {
+                    //         stockParaVentas.innerText= `Hay poco stock, solo quedan ${product.stock} unidades disponibles.`; 
+                    //     } else {
+                    //         stockParaVentas.innerText= `No hay stock del producto. Por favor, asegúrese de agregar unidades.`; 
+                    //     }
+                    // } else {
+                    //     stockParaVentas.innerText=  `hola`;
+                    //     product.stock -= productoProvisorio.stock;
+                    //     stockParaVentas.innerText= `¡Se descontaron ${productoProvisorio.stock} unidades!`;
+                    //     stockParaVentas.innerText= `Hay ${product.stock} unidades disponibles.`; 
+                    // }
+                //} 
+            // } 
+        // }); 
+        // localStorage.setItem("listaProducto", JSON.stringify(listaProductos)); 
+        // rstProductoProvisorio();
+        // formVentas.reset();
+            
+
+
+
+
+
+
+
             // if (productoProvisorio.modeloCubierta == "" && productoProvisorio.stock <= 0){
             //     modeloNuevoProducto.setAttribute("class", "inputError");
             //     stockNuevoProducto.setAttribute("class", "inputError");
@@ -318,9 +459,47 @@ const app = {
             //     agregarProducto(productoProvisorio);
             // }
             
+        
+
+        btnCantidadProducto.onclick = () => {
+            if (productoProvisorio.modeloCubierta <= 0){
+                modeloProductoVenta.setAttribute("class", "inputError");
+            } else {
+                listaProductos.forEach(product => {
+                    if (product.modeloCubierta == productoProvisorio.modeloCubierta && product.marca == productoProvisorio.marca){  
+                        primerVentanaVentas.style.display = "none";
+                        segundaVentanaVentas.style.display = "inline";
+                        tituloSinStock.style.display = "none";
+                    } else{       
+                                    
+                        primerVentanaVentas.style.display = "none";
+                        tercerVentanaVentas.style.display = "inline";
+                    }
+            });     
         };
 
-      
+
+        btnResetVentas.onclick = () => {
+            primerVentanaVentas.style.display = 'inline'; 
+            tercerVentanaVentas.style.display = 'none'; 
+
+            formVentas.reset(); 
+            rstProductoProvisorio();  
+            return productoProvisorio;
+        };
+                
+        btnResetVendido.onclick = () => {
+   
+            primerVentanaVentas.style.display = 'inline'; 
+            tituloVendido.style.display = 'none'; 
+            parrafoVendido.style.display = "none";
+            btnResetVendido.style.display = "none";
+  
+            //segundaVentana.style.display = "none";
+            formVentas.reset(); 
+            rstProductoProvisorio();  
+            return productoProvisorio;
+        };
 
         // precioNuevoProducto.onchange = () => {
         //     productoProvisorio.precio = parseFloat(precioNuevoProducto.value);
@@ -379,8 +558,48 @@ const app = {
         //     segundaVentana.style.display = "none";
         //     formNuevoProducto.reset();
         //     return productoProvisorio;
-        // };   
+        };   
     },
 }
 
 app.inicio();
+
+// const mostrarStock = () => {   
+
+//     listaProductos.forEach(product => {  
+//         if (product.modeloCubierta == productoProvisorio.modeloCubierta && product.marca == productoProvisorio.marca) {    
+//             //stockParaVentas.innerText=`Stock disponible: ${listaProductos.stock }`;
+//             console.log(product.stock);
+//         //}
+
+
+
+
+//     // if (listaProductos.some(producto => (producto.modeloCubierta == productoProvisorio.modeloCubierta && producto.marca == productoProvisorio.marca))) {       
+        
+
+//     //     let index = listaProductos.indexOf(producto.modeloCubierta);
+//     //     console.log(index);
+//     //     //stockParaVentas.innerText=`Stock disponible: ${JSON.parse(localStorage.getItem("listaProducto"))[3].stock }`;
+//         //console.log(JSON.parse(localStorage.getItem("listaProducto"))[3].stock);
+//     } else {  
+//         //stockParaVentas.innerText= `Sin Stock`;
+//         console.log("sin stocke");
+        
+//      }      
+    
+// });
+// return listaProductos;
+// }
+         // if (productoProvisorio.modeloCubierta == "" && productoProvisorio.stock <= 0){
+            //     modeloNuevoProducto.setAttribute("class", "inputError");
+            //     stockNuevoProducto.setAttribute("class", "inputError");
+            // } else if (productoProvisorio.modeloCubierta == ""){        
+            //     modeloNuevoProducto.setAttribute("class", "inputError");
+            //     stockNuevoProducto.setAttribute("class", "boton");
+            // } else if (productoProvisorio.stock <= 0){
+            //     modeloNuevoProducto.setAttribute("class", "boton");
+            //     stockNuevoProducto.setAttribute("class", "inputError");
+            // } else {
+            //     agregarProducto(productoProvisorio);
+            // }
