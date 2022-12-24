@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <title>Document</title>
 </head>
-<body>
+<body id="bodyCambioPrecios">
     <div class="grid-contenedor">
         <header>
             <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
@@ -37,19 +37,29 @@
         </header>
         <main>
             <section class="inicio">
-                <form action="">
-                    <h2>Cambiar precio</h2>                     
-                    <input type="text" placeholder="Modelo de cubierta" class="boton">
-                    <select name="select" >
-                        <option value="">Pirelli</option>
-                        <option value="">Bridgestone</option>
-                        <option value="">Firestone</option>
-                        <option value="">Kumo</option>                        
-                    </select>
-                    <input type="text" placeholder="Nuevo precio" class="boton">
-                    <input type="button" value="Consultar precio actual" class="boton">
-                    <input type="button" value="Agregar" class="boton">
-                    <input type="reset" value="Borrar" class="boton">
+                <form id="formCambioPrecios">
+                    <div id="primerVentanaCambio">
+                        <h2>Cambiar precio</h2>                     
+                        <input id="modeloProductoCambio" type="text" placeholder="Modelo de cubierta" class="boton">
+                        <select id="marcaProductoCambio" name="select" >
+                            <option>Pirelli</option>
+                            <option>Bridgestone</optionvalue=>
+                            <option>Firestone</optionvalue=>
+                            <option>Fate</option>  
+                            <option>Kumo</option>    
+                            <option>Michelin</option> 
+                            <option>Goodyear</option>                       
+                        </select>
+                        <input id="nuevoPrecio"  type="text" placeholder="Nuevo precio" class="boton">
+                        <input id="btnCambiarPrecio" type="button" value="Cambiar precio" class="boton">
+                        <input id="rstCambioPrecio" type="reset" value="Borrar" class="boton">
+                    </div>
+                    <div id="segundaVentanaCambio"> 
+                        <h2 id="tituloCambioPrecios">Cambio de precio realizado</h2> 
+                        <p id="parrafoCambioPrecios"></p>
+                        <input id="btnResetCambioPrecio" type="reset" value="Volver" class="boton"> 
+                    </div> 
+                    
                 </form>
             </section>
         </main>        
