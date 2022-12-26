@@ -9,12 +9,11 @@
     <link rel="stylesheet" href="../css/style.css">
     <title>Document</title>
 </head>
-<body>
+<body id="bodyConsultaStock">
     <div class="grid-contenedor">
         <header>
             <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
                 <div class="container-fluid">
-                    <!-- <h1 href="../index.html">CS</h1> -->
                     <h1><a href="../index.html">CS</a></h1>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
@@ -24,12 +23,10 @@
                     <div class="collapse navbar-collapse row" id="navbarNavAltMarkup">
                         <div class="navbar-nav"> 
                             <a class="nav-link" href="./agregarProducto.html">Agregar un producto</a>
+                            <a class="nav-link" href="./ventas.html">Ventas</a>
                             <a class="nav-link" href="./cambiarPrecios.html">Cambiar precios</a>                            
                             <a class="nav-link" href="./consultaStock.html">Consulta stock</a>
-                            <a class="nav-link" href="./filtros.html">Filtros</a>
                             <a class="nav-link" href="./listaProductos.html">Lista de productos</a>
-                            <a class="nav-link" href="./ventas.html">Ventas</a>
-                            <a class="nav-link" href="./cerrarSecion.html">Cerrar seción</a>
                         </div>
                     </div>
                 </div>
@@ -37,17 +34,27 @@
         </header>
         <main>
             <section class="inicio">
-                <form action="">
-                    <h2>Consultar stock</h2>                     
-                    <input type="text" placeholder="Modelo de cubierta" class="boton">
-                    <select name="select" >
-                        <option value="">Pirelli</option>
-                        <option value="">Bridgestone</option>
-                        <option value="">Firestone</option>
-                        <option value="">Kumo</option>                        
-                    </select>                    
-                    <input type="button" value="Consultar stock" class="boton">
-                    <input type="reset" value="Borrar" class="boton">
+                <form id="formConsultaStock">
+                    <div id="primerVentanaConsultaStock">
+                        <h2>Consultar stock</h2>                     
+                        <input id="modeloProductoConsultaStock" type="text" placeholder="Modelo de cubierta" class="boton">
+                        <select id="marcaProductoConsultaStock" name="select" >
+                            <option>Pirelli</option>
+                            <option>Bridgestone</optionvalue=>
+                            <option>Firestone</optionvalue=>
+                            <option>Fate</option>  
+                            <option>Kumo</option>    
+                            <option>Michelin</option> 
+                            <option>Goodyear</option>                       
+                        </select>
+                        <input id="btnConsultaStock" type="button" value="Consultar stock" class="boton">
+                        <input id="rstConsultaStock" type="reset" value="Borrar" class="boton">
+                    </div>
+                    <div id="segundaVentanaConsultaStock"> 
+                        <h2 id="tituloConsultaStock">Stock actual</h2> 
+                        <p id="parrafoConsultaStock"></p>
+                        <input id="btnResetConsultaStock" type="reset" value="Volver" class="boton"> 
+                    </div>                     
                 </form>
             </section>
         </main>        
