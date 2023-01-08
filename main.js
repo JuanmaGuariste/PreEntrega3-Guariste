@@ -12,7 +12,6 @@ const btnAgregarProductoNuevo = document.getElementById("btnAgregarProductoNuevo
 const btnReset = document.getElementById("btnReset");
 const btnResetProdAgregado = document.getElementById("btnResetProdAgregado");
 const btnRstProducto = document.getElementById("btnRstProducto");
-const vehiculo = document.getElementById("vehiculo");
 const tercerVentana = document.getElementById("tercerVentana");
 const divTercerVentana = document.getElementById("divTercerVentana");
 
@@ -72,11 +71,10 @@ const listaProd = () => {
     const productosGuardados = JSON.parse(localStorage.getItem("listaProducto")) || listaProductosDefault;
     productosGuardados.forEach(product => {
         productos.innerHTML += `<tr>
-                                    <td>${product.tipoVehiculo}</td>
                                     <td>${product.modeloCubierta}</td>
                                     <td>${product.marca}</td>
                                     <td>${product.stock}</td>
-                                    <td>${product.precio}</td>  
+                                    <td>$${product.precio}</td>  
                                 </tr>`    
     });          
     return listaProductos;
@@ -84,8 +82,7 @@ const listaProd = () => {
 
 /*----------------Funciones y variables generales--------------------------*/
 class Producto {
-    constructor(tipoVehiculo, modeloCubierta, marca, precio, stock) {
-        this.tipoVehiculo = tipoVehiculo;
+    constructor(modeloCubierta, marca, precio, stock) {
         this.modeloCubierta = modeloCubierta;
         this.marca = marca;
         this.precio = precio;
@@ -94,7 +91,6 @@ class Producto {
 };
 
 const productoProvisorio = {
-    tipoVehiculo: "Auto",
     modeloCubierta: "",
     marca: "Pirelli",
     precio: -1,
@@ -103,19 +99,19 @@ const productoProvisorio = {
 };
 
 let listaProductosDefault = [
-    {tipoVehiculo: "Auto",
+    {
     modeloCubierta: "1757013",
     marca: "Fate",
     precio: 45000,
     stock:  50
     },
-    {tipoVehiculo: "Camioneta",
+    {
     modeloCubierta: "1955515",
     marca: "Pirelli",
     precio: 65000,
     stock:  30
     },
-    {tipoVehiculo: "Moto",
+    {
     modeloCubierta: "909018",
     marca: "Fate",
     precio: 20000,
@@ -134,15 +130,13 @@ const agregarStock = (productoProvisorio) => {
             primerVentana.style.display = "none";
             segundaVentana.style.display = "none";
             tercerVentana.style.display = "inline";
-            vehiculo.style.display = "none";
             modeloNuevoProducto.style.display = "none"; 
             marcaNuevoProducto.style.display = "none"; 
             stockNuevoProducto.style.display = "none"; 
             btnAgregarProducto.style.display = "none"; 
             btnRstProducto.style.display = "none";   
             btnResetProdAgregado.style.display = "inline"; 
-            divTercerVentana.innerHTML = ` <p>Vehículo: ${product.tipoVehiculo}</p>
-                                <p>Modelo: ${product.modeloCubierta}</p>
+            divTercerVentana.innerHTML = `<p>Modelo: ${product.modeloCubierta}</p>
                                 <p>Marca: ${product.marca}</p>
                                 <p>Stock adicionado: ${productoProvisorio.stock}</p>
                                 <p>Stock total: ${product.stock}</p>
@@ -173,7 +167,6 @@ const agregarProducto = (productoProvisorio) => {
 };
 
 const rstProductoProvisorio = () => {
-    productoProvisorio.tipoVehiculo= "Auto";
     productoProvisorio.modeloCubierta= "";
     productoProvisorio.marca= "Pirelli";
     productoProvisorio.precio= -1;
@@ -327,11 +320,10 @@ const app = {
                 btnAgregarProductoNuevo.style.display = "none";
                 btnReset.style.display = "none";
                 btnResetProdAgregado.style.display = "inline"; 
-                let prodNuevo = new Producto(productoProvisorio.tipoVehiculo, productoProvisorio.modeloCubierta, productoProvisorio.marca, productoProvisorio.precio, productoProvisorio.stock);                
+                let prodNuevo = new Producto(productoProvisorio.modeloCubierta, productoProvisorio.marca, productoProvisorio.precio, productoProvisorio.stock);                
                 listaProductos.push(prodNuevo); 
                 localStorage.setItem("listaProducto", JSON.stringify(listaProductos));                 
-                divTercerVentana.innerHTML = `<p>Vehículo: ${productoProvisorio.tipoVehiculo}</p>
-                                            <p>Modelo: ${productoProvisorio.modeloCubierta}</p>
+                divTercerVentana.innerHTML = `<p>Modelo: ${productoProvisorio.modeloCubierta}</p>
                                             <p>Marca: ${productoProvisorio.marca}</p>
                                             <p>Stock adicionado: ${productoProvisorio.stock}</p>
                                             <p>Precio por unidad: $${productoProvisorio.precio}</p>`
@@ -340,6 +332,13 @@ const app = {
         };
 
         btnRstProducto.onclick = () => {
+            Swal.fire({
+                position: 'center',
+                icon: 'info',
+                title: 'Producto descartado',
+                showConfirmButton: false,
+                timer: 1500
+            });
             primerVentana.style.display = "inline";
             segundaVentana.style.display = "none";
             modeloNuevoProducto.setAttribute("class", "boton");
@@ -350,9 +349,15 @@ const app = {
         };
 
         btnResetProdAgregado.onclick = () => {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Tu producto ha sido guardado',
+                showConfirmButton: false,
+                timer: 1500
+            });
             primerVentana.style.display = 'inline'; 
             tercerVentana.style.display = 'none'; 
-            vehiculo.style.display = "inline";
             modeloNuevoProducto.style.display = "inline";
             marcaNuevoProducto.style.display = "inline";
             stockNuevoProducto.style.display = "inline";
@@ -366,6 +371,13 @@ const app = {
         };
 
         btnReset.onclick = () => {
+            Swal.fire({
+                position: 'center',
+                icon: 'info',
+                title: 'Producto descartado',
+                showConfirmButton: false,
+                timer: 1500
+            });
             primerVentana.style.display = "inline";
             segundaVentana.style.display = "none";
             formNuevoProducto.reset();
@@ -484,6 +496,13 @@ const app = {
         };
 
         btnResetVentas.onclick = () => {
+            Swal.fire({
+                position: 'center',
+                icon: 'info',
+                title: 'Venta descartada',
+                showConfirmButton: false,
+                timer: 1500
+            });
             primerVentanaVentas.style.display = 'inline'; 
             segundaVentanaVentas.style.display = 'none'; 
             tercerVentanaVentas.style.display = 'none'; 
@@ -493,6 +512,13 @@ const app = {
         };
                 
         btnResetVendido.onclick = () => {   
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Producto vendido',
+                showConfirmButton: false,
+                timer: 1500
+            });
             primerVentanaVentas.style.display = 'inline'; 
             tituloVendido.style.display = 'none'; 
             parrafoVendido.style.display = "none";
@@ -501,7 +527,14 @@ const app = {
             rstProductoProvisorio();  
             return productoProvisorio;
         }; 
-        rstVentas.onclick = () => {   
+        rstVentas.onclick = () => {  
+            Swal.fire({
+                position: 'center',
+                icon: 'info',
+                title: 'Venta descartada',
+                showConfirmButton: false,
+                timer: 1500
+            }); 
             formVentas.reset(); 
             rstProductoProvisorio();  
             return productoProvisorio;
@@ -517,7 +550,7 @@ const app = {
             rstProductoProvisorio();
         }
 
-       modeloProductoCambio.onchange= () => {
+        modeloProductoCambio.onchange= () => {
             productoProvisorio.modeloCubierta = modeloProductoCambio.value;
         };
 
@@ -552,6 +585,13 @@ const app = {
         };
 
         btnResetCambioPrecio.onclick = () => {   
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Cambio de precio realizado',
+                showConfirmButton: false,
+                timer: 1500
+            });
             primerVentanaCambio.style.display = 'inline'; 
             segundaVentanaCambio.style.display = 'none'; 
             formCambioPrecios.reset(); 
@@ -560,6 +600,13 @@ const app = {
         };
 
         rstCambioPrecio.onclick = () => {
+            Swal.fire({
+                position: 'center',
+                icon: 'info',
+                title: 'Cambio de precio descartado',
+                showConfirmButton: false,
+                timer: 1500
+            });
             formCambioPrecios.reset(); 
             rstProductoProvisorio();  
             return productoProvisorio;
