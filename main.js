@@ -66,20 +66,6 @@ const btnResetConsultaStock = document.getElementById("btnResetConsultaStock");
 const bodyListaProductos= document.getElementById("bodyListaProductos");
 const productos = document.getElementById("productos");
 
-/*----------------Lista de productos--------------------------*/
-const listaProd = () => { 
-    const productosGuardados = JSON.parse(localStorage.getItem("listaProducto")) || listaProductosDefault;
-    productosGuardados.forEach(product => {
-        productos.innerHTML += `<tr>
-                                    <td>${product.modeloCubierta}</td>
-                                    <td>${product.marca}</td>
-                                    <td>${product.stock}</td>
-                                    <td>$${product.precio}</td>  
-                                </tr>`    
-    });          
-    return listaProductos;
-}
-
 /*----------------Funciones y variables generales--------------------------*/
 class Producto {
     constructor(modeloCubierta, marca, precio, stock) {
@@ -98,30 +84,20 @@ const productoProvisorio = {
     nuevo: -1,
 };
 
-let listaProductosDefault = [
-    {
-    modeloCubierta: "1757013",
-    marca: "Fate",
-    precio: 45000,
-    stock:  50
-    },
-    {
-    modeloCubierta: "1955515",
-    marca: "Pirelli",
-    precio: 65000,
-    stock:  30
-    },
-    {
-    modeloCubierta: "909018",
-    marca: "Fate",
-    precio: 20000,
-    stock:  100
-    },
-];
+const obtenerDatos = () =>{
+    fetch("../datosJson.json")
+        .then(res => res.json())
+        .then(result => { 
+            localStorage.setItem("listaProductoDefault", JSON.stringify(result));
+            return  result; 
+        })
+}
 
-let listaProductos = JSON.parse(localStorage.getItem("listaProducto")) || listaProductosDefault;
+let listaProductos = [];
+let cambioPrecioOk = 1;
+let productoVendidoOk = 1;
 
-/*----------------Funciones para página "Lista de productos"--------------------------*/
+/*----------------Funciones para página "Agregar productos"--------------------------*/
 const agregarStock = (productoProvisorio) => { 
     if(productoProvisorio.nuevo == 0) {
     listaProductos.forEach(product => {  
@@ -156,6 +132,7 @@ const agregarStock = (productoProvisorio) => {
 };
 
 const agregarProducto = (productoProvisorio) => {   
+    listaProductos = JSON.parse(localStorage.getItem("listaProducto")) || JSON.parse(localStorage.getItem("listaProductoDefault"));
     if (listaProductos.some(producto => (producto.modeloCubierta == productoProvisorio.modeloCubierta && producto.marca == productoProvisorio.marca))) {   
         productoProvisorio.nuevo = 0;
         agregarStock(productoProvisorio);         
@@ -177,6 +154,7 @@ const rstProductoProvisorio = () => {
 
 /*----------------Funciones para página "Cambio de precios"--------------------------*/
 const cambioPrecio = () => {
+    listaProductos = JSON.parse(localStorage.getItem("listaProducto")) || JSON.parse(localStorage.getItem("listaProductoDefault"));
     listaProductos.forEach(product => {
         if (product.modeloCubierta == productoProvisorio.modeloCubierta && product.marca == productoProvisorio.marca) {   
             product.precio =  productoProvisorio.precio;
@@ -187,6 +165,7 @@ const cambioPrecio = () => {
             formCambioPrecios.reset();
         } 
     });
+    cambioPrecioOk = 1;
     return productoProvisorio;
 };
 
@@ -202,6 +181,7 @@ const productoNoExiste = () => {
     segundaVentanaCambio.style.display = "inline";
     parrafoCambioPrecios.innerText = `El producto no está agregado.\n Modelo: ${productoProvisorio.modeloCubierta}\nMarca: ${productoProvisorio.marca}`; 
     tituloCambioPrecios.innerText = `Producto sin stock`;
+    cambioPrecioOk = 0;
     return productoProvisorio;
 };
 
@@ -230,13 +210,27 @@ const mostrarSinStock = () => {
     return productoProvisorio;
 };
 
+/*----------------Funciones para página "Lista de productos"--------------------------*/
+const listaProd = () => {      
+    let productosGuardados = JSON.parse(localStorage.getItem("listaProducto")) || JSON.parse(localStorage.getItem("listaProductoDefault"));
+    productosGuardados.forEach(product => {
+        productos.innerHTML += `<tr>
+                                    <td>${product.modeloCubierta}</td>
+                                    <td>${product.marca}</td>
+                                    <td>${product.stock}</td>
+                                    <td>$${product.precio}</td>  
+                                </tr>`    
+    });          
+    return productosGuardados;
+}
+
 /*----------------App para control de DOM--------------------------*/
 const app = {
-    inicio: () => {
-        document.addEventListener(`DOMContentLoaded`, app.cargar);
+    inicio: () => {                  
+        document.addEventListener(`DOMContentLoaded`, app.cargar);        
     },
 
-    cargar: () => {
+    cargar: () => {               
         app.obtenerPagina();
     }, 
 
@@ -246,7 +240,7 @@ const app = {
             case `bodyAgregarProducto`:
                 app.paginaAgregarProd();
                 break;
-            case `bodyListaProductos`:
+            case `bodyListaProductos`:                
                 app.paginaListaProductos();
                 break;            
             case `bodyVentas`:
@@ -427,7 +421,9 @@ const app = {
                 listaProductos.forEach(product => {  
                     if (product.modeloCubierta == productoProvisorio.modeloCubierta && product.marca == productoProvisorio.marca) {   
                         if ((product.stock - productoProvisorio.stock) == 0) {
-                            product.stock -= productoProvisorio.stock;                       
+                            tituloVendido.innerText= `Producto vendido`;
+                            product.stock -= productoProvisorio.stock;   
+                            productoVendidoOk = 1;                    
                             if (productoProvisorio.stock == 1) {
                                 parrafoVendido.innerText=`¡Se descontó 1 unidad!\n`; 
                             } else {
@@ -437,6 +433,7 @@ const app = {
                             parrafoVendido.innerText +=`No hay stock del producto. Por favor, asegúrese de agregar unidades.`;      
                         } else if ((product.stock - productoProvisorio.stock) == 1) {
                             product.stock -= productoProvisorio.stock;
+                            productoVendidoOk = 1; 
                             if (productoProvisorio.stock == 1) {
                                 parrafoVendido.innerText= `¡Se descontó 1 unidad!`; 
                             } else {
@@ -446,6 +443,8 @@ const app = {
                             parrafoVendido.innerText= `Hay poco stock, solo queda 1 unidad disponible.`;         
                         } else if (((product.stock - productoProvisorio.stock) <= 10) && ((product.stock - productoProvisorio.stock) >= 0)) {
                             product.stock -= productoProvisorio.stock;
+                            productoVendidoOk = 1; 
+                            tituloVendido.innerText= `Producto vendido`;
                             parrafoVendido.innerText= `¡Se descontaron ${productoProvisorio.stock} unidades!`; 
                             if (product.stock > 0) {
                                 parrafoVendido.innerText= `Hay poco stock, solo quedan ${product.stock} unidades disponibles.`; 
@@ -453,7 +452,9 @@ const app = {
                                 parrafoVendido.innerText= `No hay stock del producto. Por favor, asegúrese de agregar unidades.`; 
                             }
                         } else if (product.stock - productoProvisorio.stock > 10){
+                            tituloVendido.innerText= `Producto vendido`;
                             product.stock -= productoProvisorio.stock;
+                            productoVendidoOk = 1; 
                             parrafoVendido.innerText= `¡Se descontaron ${productoProvisorio.stock} unidades!`;
                             parrafoVendido.innerText= `Hay ${product.stock} unidades disponibles.`; 
                         } else {
@@ -465,8 +466,9 @@ const app = {
                                 parrafoVendido.innerText=  `No se pudo concretar la venta. Solo hay  ${product.stock} unidades disponibles.`;
                             }
                             tituloVendido.innerText= `Venta incompleta!`;
+                            productoVendidoOk = 0; 
                         }
-                    }
+                    } 
                 });
                 localStorage.setItem("listaProducto", JSON.stringify(listaProductos)); 
                 rstProductoProvisorio();
@@ -476,6 +478,7 @@ const app = {
         };  
 
         btnCantidadProducto.onclick = () => {
+            listaProductos = JSON.parse(localStorage.getItem("listaProducto")) || JSON.parse(localStorage.getItem("listaProductoDefault"));
             if (productoProvisorio.modeloCubierta <= 0) {
                 modeloProductoVenta.setAttribute("class", "inputError");
             } else {
@@ -484,10 +487,12 @@ const app = {
                     if (product.modeloCubierta == productoProvisorio.modeloCubierta && product.marca == productoProvisorio.marca) {  
                         primerVentanaVentas.style.display = "none";
                         segundaVentanaVentas.style.display = "inline";
-                        tituloSinStock.style.display = "none";                        
+                        tituloSinStock.style.display = "none";    
+                                            
                     } else {                                           
                         primerVentanaVentas.style.display = "none";
                         tercerVentanaVentas.style.display = "inline";
+                        tituloSinStock.style.display = "block";
                         btnResetVentas.style.display = "block";
                     }
                 }); 
@@ -511,14 +516,24 @@ const app = {
             return productoProvisorio;
         };
                 
-        btnResetVendido.onclick = () => {   
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Producto vendido',
-                showConfirmButton: false,
-                timer: 1500
-            });
+        btnResetVendido.onclick = () => {  
+            if(productoVendidoOk == 1 ){
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Producto vendido',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: 'Venta descartada',
+                    showConfirmButton: false,
+                    timer: 1500
+                }); 
+            }
             primerVentanaVentas.style.display = 'inline'; 
             tituloVendido.style.display = 'none'; 
             parrafoVendido.style.display = "none";
@@ -575,6 +590,7 @@ const app = {
             } else {
                 modeloProductoCambio.setAttribute("class", "boton");
                 nuevoPrecio.setAttribute("class", "boton");
+                listaProductos = JSON.parse(localStorage.getItem("listaProducto")) || JSON.parse(localStorage.getItem("listaProductoDefault"));
                 if (listaProductos.some(producto => (producto.modeloCubierta == productoProvisorio.modeloCubierta  && producto.marca == productoProvisorio.marca))) {   
                     cambioPrecio();         
                 } else {    
@@ -584,14 +600,24 @@ const app = {
             return productoProvisorio;        
         };
 
-        btnResetCambioPrecio.onclick = () => {   
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Cambio de precio realizado',
-                showConfirmButton: false,
-                timer: 1500
-            });
+        btnResetCambioPrecio.onclick = () => {  
+            if(cambioPrecioOk == 1){
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Cambio de precio realizado',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: 'Cambio de precio descartado',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
             primerVentanaCambio.style.display = 'inline'; 
             segundaVentanaCambio.style.display = 'none'; 
             formCambioPrecios.reset(); 
@@ -631,15 +657,12 @@ const app = {
         }; 
 
         btnConsultaStock.onclick = () => {
+            listaProductos = JSON.parse(localStorage.getItem("listaProducto")) || JSON.parse(localStorage.getItem("listaProductoDefault"));
             if (productoProvisorio.modeloCubierta == "") {
                 modeloProductoConsultaStock.setAttribute("class", "inputError");            
             } else {
                 modeloProductoConsultaStock.setAttribute("class", "boton"); 
-                if (listaProductos.some(producto => (producto.modeloCubierta == productoProvisorio.modeloCubierta  && producto.marca == productoProvisorio.marca))) {   
-                    consultarStock();         
-                } else {    
-                    mostrarSinStock();   
-                }                
+                listaProductos.some(producto => (producto.modeloCubierta == productoProvisorio.modeloCubierta  && producto.marca == productoProvisorio.marca)) ? consultarStock() : mostrarSinStock();                               
             }  
             return productoProvisorio;           
         };
@@ -662,4 +685,8 @@ const app = {
     }, 
 };
 
+/*-----------------------Carga de valores por default del archivo .json------------------------*/
+obtenerDatos();
+
+/*---------------------------------Inicio de aplicación----------------------------------------*/
 app.inicio();

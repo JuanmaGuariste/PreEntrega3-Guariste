@@ -1,0 +1,26 @@
+[
+    {
+    "modeloCubierta": "1757013",
+    "marca": "Fate",
+    "precio": 45000,
+    "stock":  50
+    },
+    {
+    "modeloCubierta": "1955515",
+    "marca": "Pirelli",
+    "precio": 65000,
+    "stock":  30
+    },
+    {
+    "modeloCubierta": "909018",
+    "marca": "Fate",
+    "precio": 20000,
+    "stock":  100
+    },
+    {
+    "modeloCubierta": "909018",
+    "marca": "Goodyear",
+    "precio": 25000,
+    "stock":  100
+    }
+]
